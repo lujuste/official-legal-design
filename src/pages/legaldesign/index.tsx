@@ -6,10 +6,9 @@ import {
   Grid,
   GridItem,
   Icon,
+  Spinner,
   useBreakpointValue,
 } from '@chakra-ui/react'
-
-import Image from 'next/image'
 
 import ContractBeforeIcon from './ContractBeforeIcon'
 import ContractAfterIcon from './ContractAfterIcon'
@@ -17,6 +16,10 @@ import ContractAfterIconDesktop from './components/ContractAfterMobileIcon'
 import WhyLegalDesign from './components/WhyLegalDesign'
 import Diagram from './components/Diagram'
 import MoreBusiness from './components/MoreBusiness'
+import ContractImage from './components/ContractImage'
+
+import dynamic from 'next/dynamic'
+import LegalDesignComparation from './components/LegalDesignComparation'
 
 const LegalDesign: NextPage = () => {
   const isWideVersion = useBreakpointValue({
@@ -85,61 +88,7 @@ const LegalDesign: NextPage = () => {
           </Text>
           {isWideVersion ? (
             <>
-              {' '}
-              <Flex
-                px="2rem"
-                w="100%"
-                maxW="1400"
-                justify="center"
-                mx="auto"
-                mt="2rem"
-              >
-                <Flex mt="-4.5rem" flexDir="column">
-                  <Text
-                    fontSize="25px"
-                    fontWeight="600"
-                    fontFamily="Raleway"
-                    color="pink.900"
-                    transform="translateY(100px)"
-                    mx="auto"
-                    pl="10rem"
-                  >
-                    antes
-                  </Text>
-                  <Flex mr="1rem">
-                    <Image
-                      width="500px"
-                      height="700px"
-                      src="/images/contract-before.svg"
-                      alt=""
-                      loading="lazy"
-                    />
-                  </Flex>
-                </Flex>
-
-                <Flex mt="-4.5rem" flexDir="column">
-                  <Text
-                    fontSize="25px"
-                    fontWeight="600"
-                    fontFamily="Raleway"
-                    color="pink.900"
-                    transform="translateY(100px)"
-                    mr="auto"
-                    pl="8rem"
-                  >
-                    depois
-                  </Text>
-                  <Flex ml="1rem">
-                    <Image
-                      width="500px"
-                      height="700px"
-                      src="/images/desktop-background-red.svg"
-                      alt=""
-                      loading="lazy"
-                    />
-                  </Flex>
-                </Flex>
-              </Flex>
+              <LegalDesignComparation />
             </>
           ) : (
             <>
