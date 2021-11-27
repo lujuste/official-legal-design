@@ -112,6 +112,8 @@ const LegalDesign: NextPage = () => {
                       height="700px"
                       src="/images/contract-before.svg"
                       alt=""
+                      placeholder="blur"
+                      blurDataURL="/images/blur-contract.jpg"
                       priority={true}
                     />
                   </Flex>
@@ -136,6 +138,8 @@ const LegalDesign: NextPage = () => {
                       src="/images/desktop-background-red.svg"
                       alt=""
                       priority={true}
+                      placeholder="blur"
+                      blurDataURL="/images/blur-red.webp"
                     />
                   </Flex>
                 </Flex>
