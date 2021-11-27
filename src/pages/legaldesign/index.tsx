@@ -112,7 +112,7 @@ const LegalDesign: NextPage = () => {
                       height="700px"
                       src="/images/contract-before.svg"
                       alt=""
-                      priority={true}
+                      loading="lazy"
                     />
                   </Flex>
                 </Flex>
@@ -135,8 +135,7 @@ const LegalDesign: NextPage = () => {
                       height="700px"
                       src="/images/desktop-background-red.svg"
                       alt=""
-                      priority={true}
-                      loading={'lazy'}
+                      loading="lazy"
                     />
                   </Flex>
                 </Flex>
