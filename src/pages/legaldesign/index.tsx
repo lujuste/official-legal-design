@@ -8,7 +8,17 @@ import {
   Icon,
   Spinner,
   useBreakpointValue,
+  HTMLChakraProps,
+  TextProps,
 } from '@chakra-ui/react'
+
+import { HTMLMotionProps, motion, AnimatePresence } from 'framer-motion'
+type Merge<P, T> = Omit<P, keyof T> & T
+
+type MotionProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
+
+export const MotionHeading: NextPage<MotionProps> = motion(Heading)
+const MotionText: NextPage<MotionProps> = motion(Text)
 
 import ContractBeforeIcon from './ContractBeforeIcon'
 import ContractAfterIcon from './ContractAfterIcon'
@@ -20,8 +30,10 @@ import ContractImage from './components/ContractImage'
 
 import dynamic from 'next/dynamic'
 import LegalDesignComparation from './components/LegalDesignComparation'
+import { useViewportContext } from '../../contexts/ViewContext'
 
 const LegalDesign: NextPage = () => {
+  const { ref }: any = useViewportContext()
   const isWideVersion = useBreakpointValue({
     base: false,
     sm: false,
@@ -53,24 +65,32 @@ const LegalDesign: NextPage = () => {
           align="center"
           py={['7rem', '7rem', '10rem']}
           flexDir="column"
+          ref={ref}
         >
-          <Heading
-            as="h1"
-            fontFamily="Raleway"
-            textAlign="center"
-            fontWeight="600"
-            maxW={['199px', '199px', '320px']}
-            fontSize={['30px', '30px', '36px', '48px']}
-            lineHeight={['40px', '40px', '48px', '55px']}
-            w="100%"
-            h="auto"
-          >
-            O que é{' '}
-            <Text as="span" color="pink.900">
-              Legal Design?
-            </Text>
-          </Heading>
-          <Text
+          <AnimatePresence exitBeforeEnter>
+            <MotionHeading
+              as="h1"
+              fontFamily="Raleway"
+              textAlign="center"
+              fontWeight="600"
+              initial={{ y: '3vh', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-3000vh', opacity: 0 }}
+              transition={{ type: 'spring', duration: 1.5, bounce: 0.3 }}
+              maxW={['199px', '199px', '320px']}
+              fontSize={['30px', '30px', '36px', '48px']}
+              lineHeight={['40px', '40px', '48px', '55px']}
+              w="100%"
+              h="auto"
+            >
+              O que é{' '}
+              <Text as="span" color="pink.900">
+                Legal Design?
+              </Text>
+            </MotionHeading>
+          </AnimatePresence>
+
+          <MotionText
             fontWeight="400"
             fontSize={['0.938rem', '0.938rem', '1rem']}
             lineHeight="24px"
@@ -79,13 +99,17 @@ const LegalDesign: NextPage = () => {
             h="auto"
             textAlign="center"
             mt="25px"
+            initial={{ y: '25vh', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '-25vh', opacity: 0 }}
+            transition={{ type: 'spring', duration: 1.5, bounce: 0.3 }}
           >
             É uma técnica focada na concepção de documentos jurídicos utilizando
             princípios de design e experiência do usuário. Dessa maneira, os
             usuários de documentos jurídicos são capazes de entender esse
             documento e, por isso, ele passa a servir para sua real finalidade:
             fazer negócios.
-          </Text>
+          </MotionText>
           {isWideVersion ? (
             <>
               <LegalDesignComparation />

@@ -24,6 +24,12 @@ import GroupContract from './GroupContract'
 
 import dynamic from 'next/dynamic'
 
+type Merge<P, T> = Omit<P, keyof T> & T
+type MotionFlexProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
+type MotionHeadingProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
+
+const MotionHeading: NextPage<MotionHeadingProps> = motion(Heading)
+
 const ContractSSR = dynamic(() => import('./GroupContract'), {
   ssr: false,
   loading: () => (
@@ -38,9 +44,6 @@ const ContractSSR = dynamic(() => import('./GroupContract'), {
     </Flex>
   ),
 })
-
-type Merge<P, T> = Omit<P, keyof T> & T
-type MotionFlexProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
 
 export const MotionFlex: NextPage<MotionFlexProps> = motion(Flex)
 
@@ -92,7 +95,7 @@ export default function HomeScreen(): JSX.Element {
             ml={['0rem', '0rem', '0rem', '0.5rem']}
           >
             <SlideFade in={isOpen}>
-              <Heading
+              <MotionHeading
                 as="h1"
                 fontFamily="Raleway"
                 fontWeight="600"
@@ -101,13 +104,16 @@ export default function HomeScreen(): JSX.Element {
                 maxW={['270px', '320px', '500px', '500px', '500px']}
                 mt={['2rem', '2rem', '2rem', '2rem', '-2rem']}
                 w="100%"
+                initial={{ y: '3vh' }}
+                animate={{ y: 0 }}
+                transition={{ type: 'spring', duration: 1.5, bounce: 0.3 }}
               >
                 Documentos em{' '}
                 <Text color="pink.900" as="span">
                   Legal Design
                 </Text>{' '}
                 geram resultados melhores
-              </Heading>
+              </MotionHeading>
             </SlideFade>
 
             <Fade bottom>

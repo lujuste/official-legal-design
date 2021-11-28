@@ -7,11 +7,49 @@ import {
   ListItem,
   ListIcon,
   useBreakpointValue,
+  HTMLChakraProps,
 } from '@chakra-ui/react'
+import {
+  HTMLMotionProps,
+  motion,
+  AnimatePresence,
+  useAnimation,
+} from 'framer-motion'
+
+import Fade from 'react-reveal/Fade'
+
+import { useEffect, useState } from 'react'
 
 import { BsTriangleFill } from 'react-icons/bs'
+import { useViewportContext } from '../../../../contexts/ViewContext'
+import { NextPage } from 'next'
+
+type Merge<P, T> = Omit<P, keyof T> & T
+type MotionProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
+
+const MotionListItem: NextPage<MotionProps> = motion(ListItem)
 
 export default function WhyTrainningMyTeam() {
+  const { ref, inView }: any = useViewportContext()
+  const animation = useAnimation()
+
+  useEffect(() => {
+    if (inView) {
+      animation.start({
+        x: 0,
+        transition: {
+          type: 'spring',
+          duration: 2,
+          bounce: 0.3,
+        },
+      })
+    }
+
+    if (!inView) {
+      animation.start({ x: '-100vh' })
+    }
+  }, [inView])
+
   const isWideVersion = useBreakpointValue({
     base: false,
     sm: false,
@@ -41,41 +79,48 @@ export default function WhyTrainningMyTeam() {
         justify="center"
         mx="auto"
       >
-        <Heading
-          fontFamily="Raleway"
-          lineHeight={['2.5rem', '2.5rem', '2.5rem', '3.438rem']}
-          fontSize={['1.875rem', '1.875rem', '1.875rem', '3rem']}
-          mx="auto"
-          fontWeight="600"
-          textAlign={['center', 'center', 'center', 'left']}
-          mt={['0', '0', '0', '-5.5rem']}
-        >
-          <Text as="span" color="pink.900">
-            Porque treinar{' '}
-          </Text>
-          meu time em Legal Design?
-        </Heading>
-        <Text
-          textAlign={['center', 'center', 'center', 'left']}
-          mt="1rem"
-          color="#666666"
-        >
-          Times que aplicam o Legal Design em seus documentos têm:
-        </Text>
-        {isWideVersion && (
-          <Button
-            w="100%"
-            mt="1.5rem"
-            maxW="229px"
-            h="50px"
-            mr="auto"
-            bgColor="pink.900"
-            color="white"
-            px="1rem"
-            fontSize="0.875rem"
+        <Fade bottom>
+          <Heading
+            fontFamily="Raleway"
+            lineHeight={['2.5rem', '2.5rem', '2.5rem', '3.438rem']}
+            fontSize={['1.875rem', '1.875rem', '1.875rem', '3rem']}
+            mx="auto"
+            fontWeight="600"
+            textAlign={['center', 'center', 'center', 'left']}
+            mt={['0', '0', '0', '-5.5rem']}
           >
-            Quero contratar o treinamento
-          </Button>
+            <Text as="span" color="pink.900">
+              Porque treinar{' '}
+            </Text>
+            meu time em Legal Design?
+          </Heading>
+        </Fade>
+        <Fade bottom>
+          <Text
+            textAlign={['center', 'center', 'center', 'left']}
+            mt="1rem"
+            color="#666666"
+          >
+            Times que aplicam o Legal Design em seus documentos têm:
+          </Text>
+        </Fade>
+
+        {isWideVersion && (
+          <Fade bottom>
+            <Button
+              w="100%"
+              mt="1.5rem"
+              maxW="229px"
+              h="50px"
+              mr="auto"
+              bgColor="pink.900"
+              color="white"
+              px="1rem"
+              fontSize="0.875rem"
+            >
+              Quero contratar o treinamento
+            </Button>
+          </Fade>
         )}
       </Flex>
       <Flex
@@ -87,14 +132,15 @@ export default function WhyTrainningMyTeam() {
         h="auto"
         mx="auto"
       >
-        <List ml={['0', '0', '0', '1rem']} pb="1rem" spacing={5}>
-          <ListItem
+        <List ref={ref} ml={['0', '0', '0', '1rem']} pb="1rem" spacing={5}>
+          <MotionListItem
             as="h2"
             display="flex"
             fontSize="1rem"
             color="#666666"
             fontWeight="normal"
             lineHeight="1.5rem"
+            animate={animation}
           >
             <ListIcon
               mt="0.2rem"
@@ -113,13 +159,14 @@ export default function WhyTrainningMyTeam() {
               </Text>{' '}
               na negociação de contratos
             </Text>
-          </ListItem>
-          <ListItem
+          </MotionListItem>
+          <MotionListItem
             color="#666666"
             display="flex"
             fontSize="1rem"
             fontWeight="normal"
             lineHeight="1.5rem"
+            animate={animation}
           >
             <ListIcon
               mt="0.4rem"
@@ -139,13 +186,14 @@ export default function WhyTrainningMyTeam() {
               </Text>{' '}
               em relação ao conteúdo de um documento
             </Text>
-          </ListItem>
-          <ListItem
+          </MotionListItem>
+          <MotionListItem
             color="#666666"
             display="flex"
             fontSize="1rem"
             fontWeight="normal"
             lineHeight="1.5rem"
+            animate={animation}
           >
             <ListIcon
               mt="0.4rem"
@@ -180,13 +228,14 @@ export default function WhyTrainningMyTeam() {
               </Text>{' '}
               nos documentos
             </Text>
-          </ListItem>
-          <ListItem
+          </MotionListItem>
+          <MotionListItem
             display="flex"
             fontSize="1rem"
             fontWeight="normal"
             lineHeight="1.5rem"
             color="#666666"
+            animate={animation}
           >
             <ListIcon
               mt="0.4rem"
@@ -210,13 +259,14 @@ export default function WhyTrainningMyTeam() {
                 vendas
               </Text>
             </Text>
-          </ListItem>
-          <ListItem
+          </MotionListItem>
+          <MotionListItem
             display="flex"
             fontSize="1rem"
             fontWeight="normal"
             lineHeight="1.5rem"
             color="#666666"
+            animate={animation}
           >
             <ListIcon
               mt="0.4rem"
@@ -237,24 +287,26 @@ export default function WhyTrainningMyTeam() {
               </Text>{' '}
               em ações no judiciário
             </Text>
-          </ListItem>
+          </MotionListItem>
         </List>
       </Flex>
 
       {!isWideVersion && (
-        <Button
-          w="100%"
-          mt="1.5rem"
-          maxW="229px"
-          h="50px"
-          mx="auto"
-          bgColor="pink.900"
-          color="white"
-          px="1rem"
-          fontSize="0.875rem"
-        >
-          Quero contratar o treinamento
-        </Button>
+        <Fade bottom>
+          <Button
+            w="100%"
+            mt="1.5rem"
+            maxW="229px"
+            h="50px"
+            mx="auto"
+            bgColor="pink.900"
+            color="white"
+            px="1rem"
+            fontSize="0.875rem"
+          >
+            Quero contratar o treinamento
+          </Button>
+        </Fade>
       )}
     </Flex>
   )

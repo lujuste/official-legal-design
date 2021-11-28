@@ -37,6 +37,7 @@
     "react-hook-form": "^7.17.0",
     "react-icons": "^4.3.1",
     "react-in-viewport": "^1.0.0-alpha.20",
+    "react-intersection-observer": "^8.32.5",
     "react-query": "^3.32.1",
     "react-reveal": "^1.2.2",
     "react-toastify": "^8.1.0",

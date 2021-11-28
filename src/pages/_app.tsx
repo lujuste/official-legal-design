@@ -22,6 +22,8 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
 import { CookieConsentProvider } from '../contexts/CookieConsent'
+import { ViewportProvider } from '../contexts/ViewContext'
+import { AnimateSharedLayout } from 'framer-motion'
 
 const queryClient = new QueryClient()
 
@@ -30,24 +32,26 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
     <>
       <QueryClientProvider client={queryClient}>
         <>
-          <CacheProvider value={emotionCache}>
-            <CookieConsentProvider>
-              <ToastContainer />
-              <NextProgress
-                color="#CD3266"
-                startPosition={0.3}
-                stopDelayMs={200}
-                height={2}
-              />
-              <SidebarDrawerProvider>
-                <ChakraProvider resetCSS theme={theme}>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
-                </ChakraProvider>
-              </SidebarDrawerProvider>
-            </CookieConsentProvider>
-          </CacheProvider>
+          <ViewportProvider>
+            <CacheProvider value={emotionCache}>
+              <CookieConsentProvider>
+                <ToastContainer />
+                <NextProgress
+                  color="#CD3266"
+                  startPosition={0.3}
+                  stopDelayMs={200}
+                  height={2}
+                />
+                <SidebarDrawerProvider>
+                  <ChakraProvider resetCSS theme={theme}>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </ChakraProvider>
+                </SidebarDrawerProvider>
+              </CookieConsentProvider>
+            </CacheProvider>
+          </ViewportProvider>
         </>
       </QueryClientProvider>
     </>
